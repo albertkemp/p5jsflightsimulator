@@ -19,9 +19,15 @@ function keyReleased() {
 function setup() {
     createCanvas(1430, 630);
     frameRate(100); // Set the frame rate to 60 frames per second
+    let planeAltitude = 0;
+  }
+
+  function calculateAltitude() {
+    return 100 - 10 / 63 * y;
   }
   
   function draw() {
+    var planeAltitude = calculateAltitude();
 
     background(152, 234, 250);
 
@@ -76,12 +82,7 @@ function setup() {
     fill(0)
     textSize(20);
     text('Altitude (feet)', 1300, 20);
-    rect(1400, 500, 10, -y);
-    text('0', 1350, 50);
-    text('50', 1350, 275);
-    text('100', 1350, 500);
-    text('25', 1350, 160);
-    text('75', 1350, 400);
+    rect(1400, Math.floor(planeAltitude), 10, 60);
     fill(3, 255, 28);
     rect(20, 250, 30, background_speed);
 
@@ -128,6 +129,7 @@ if (angle > 90) {
   textSize(32);
   text('Pitch: ' + angle, 0, 590)
   text('Speed (KNOTS): ' + background_speed*1.625, 0, 550);
+  text('Altitude: ' + Math.floor(planeAltitude), 0, 510);
   textSize(20);
   text('Keypresses:\nw = throttle up by 10\ns = throttle down by 10\ng = gear toggle\ndown arrow = pitch up\nup arrow = pitch down\nspace = brakes', 0, 20);
   textSize(32);

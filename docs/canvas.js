@@ -9,6 +9,7 @@ let speed = 5;
 let angle = 0;
 let angleSpeed = 0.01;
 let maxthrottle = 100; 
+let minthrottle = 0;
 
 function keyReleased() {
   if (key === 'g') {
@@ -19,21 +20,35 @@ function keyReleased() {
 function setup() {
     createCanvas(1430, 630);
     frameRate(100); // Set the frame rate to 60 frames per second
-    let planeAltitude = 0;
+    let numberAltitude = 0;
+    let displayAltitude = 100;
   }
 
-  function calculateAltitude() {
+  function CWW() {
+    return 10 / 63 * y;
+  }
+
+  function CRW() {
     return 100 - 10 / 63 * y;
+  }
+
+  function flipSpeed() {
+    return 200 - Math.floor(background_speed*1.625);
   }
   
   function draw() {
-    var planeAltitude = calculateAltitude();
+    numberAltitude = CRW();
+    displayAltitude = CWW();
 
     background(152, 234, 250);
 
     fill(0);
     noStroke(); // remove the stroke
     rect(0, 600,1430,30); // the runway
+
+    stroke(1);
+    fill(195, 199, 196);
+    rect(0, 0, 300, 600);
 
     fill(255);
     rect(background_x,610,70,10);
@@ -77,14 +92,24 @@ function setup() {
     fill(0);
     textSize(20);
     text('Pitch', 1300, 520);
-    text('Throttle: ' + '(' + background_speed + ')', 20, 250);
-    pop()
-    fill(0)
+    text('Throttle ' + '(' + background_speed + ')', 0, 20);
+    pop();
+    fill(145, 144, 144);
+    rect(120, 25, 60, 115);
+    fill(0);
     textSize(20);
-    text('Altitude (feet)', 1300, 20);
-    rect(1400, Math.floor(planeAltitude), 10, 60);
+    text('Altitude (feet)', 120, 20);
+    text('0', 120, 140);
+    text('100', 120, 40);
+    text('50', 120, 90);
+    fill(255);
+    rect(120, Math.floor(displayAltitude) + 30, 60, 30);
+    fill(0);
+    text(Math.floor(numberAltitude), 120, Math.floor(displayAltitude) + 50);
+    fill(145, 144, 144);
+    rect(10, 25, 30, 100);
     fill(3, 255, 28);
-    rect(20, 250, 30, background_speed);
+    rect(10, 25, 30, background_speed);
 
     background_x += background_speed;
   if (background_x > 1350) {
@@ -128,10 +153,23 @@ if (angle > 90) {
   fill(0);
   textSize(32);
   text('Pitch: ' + angle, 0, 590)
-  text('Speed (KNOTS): ' + background_speed*1.625, 0, 550);
-  text('Altitude: ' + Math.floor(planeAltitude), 0, 510);
+  text('Speed (KNOTS): ' + Math.floor(background_speed*1.625), 0, 550);
+  text('Altitude: ' + Math.floor(numberAltitude), 0, 510);
+  let newspeed = flipSpeed();
+  fill(145, 144, 144)
+  rect(10, 160, 60, 190);
   textSize(20);
-  text('Keypresses:\nw = throttle up by 10\ns = throttle down by 10\ng = gear toggle\ndown arrow = pitch up\nup arrow = pitch down\nspace = brakes', 0, 20);
+  fill(0);
+  text('0', 10, 350);
+  text('162', 10, 175);
+  text('81', 10, 260);
+  fill(255);
+  rect(10, Math.floor(newspeed) + 120, 60, 30);
+  fill(0);
+  textSize(20);
+  text('Speed (KNOTS)', 0, 155)
+  text(Math.floor(background_speed*1.625), 10, newspeed + 140);
+  text('Keypresses:\nw = throttle up by 10\ns = throttle down by 10\ng = gear toggle\ndown arrow = pitch up and gain height\nup arrow = pitch down and lose height\nleft arrow = pitch down\nright arrow = pitch up\nspace = brakes', 400, 100);
   textSize(32);
   text("Albert Kemp's JavaScript Flight Simulator ⭐⭐⭐⭐⭐", 450, 40);
   }
@@ -141,18 +179,26 @@ if (angle > 90) {
       background_speed = maxthrottle;
     }
   }
+  let newthrottle = background_speed;
 
-  function keyPressed() {
-    if (key === 'w') {
-      background_speed += 10;
-    } else if (key === 's') {
-      background_speed -= 10;
-    } else if (background_speed > maxthrottle) {
+function keyPressed() {
+  if (key === 'w') {
+    newthrottle = background_speed + 10;
+    if (newthrottle <= maxthrottle) {
+      background_speed = newthrottle;
+    } else if (newthrottle >= maxthrottle) {
       background_speed = maxthrottle;
-    } else if (key === ' ') {
-      background_speed = 0;
     }
+  } else if (key === 's') {
+    newthrottle = background_speed - 10;
+    if (newthrottle >= 0) {
+      background_speed = newthrottle;
+    }
+  } else if (key === ' ') {
+    background_speed = 0;
   }
+}
+
   
   
     

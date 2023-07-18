@@ -153,8 +153,6 @@ if (angle > 90) {
   fill(0);
   textSize(32);
   text('Pitch: ' + angle, 0, 590)
-  text('Speed (KNOTS): ' + Math.floor(background_speed*1.625), 0, 550);
-  text('Altitude: ' + Math.floor(numberAltitude), 0, 510);
   let newspeed = flipSpeed();
   fill(145, 144, 144)
   rect(10, 160, 60, 190);
@@ -167,9 +165,10 @@ if (angle > 90) {
   rect(10, Math.floor(newspeed) + 120, 60, 30);
   fill(0);
   textSize(20);
-  text('Speed (KNOTS)', 0, 155)
   text(Math.floor(background_speed*1.625), 10, newspeed + 140);
-  text('Keypresses:\nw = throttle up by 10\ns = throttle down by 10\ng = gear toggle\ndown arrow = pitch up and gain height\nup arrow = pitch down and lose height\nleft arrow = pitch down\nright arrow = pitch up\nspace = brakes', 400, 100);
+  text('Speed (KNOTS)', 0, 155);
+  textSize(15);
+  text('Keypresses:\nw = throttle up by 10\ns = throttle down by 10\ng = gear toggle\ndown arrow = pitch up and gain height\nup arrow = pitch down and lose height\nleft arrow = pitch down\nright arrow = pitch up\nspace = brakes', 0, 400);
   textSize(32);
   text("Albert Kemp's JavaScript Flight Simulator ⭐⭐⭐⭐⭐", 450, 40);
   }

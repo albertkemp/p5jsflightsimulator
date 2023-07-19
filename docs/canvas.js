@@ -60,7 +60,7 @@ function setup() {
     fill(0);
     if (landing_gear_down) {
       ellipse(-201, 100, 20);
-      rect(-205, 50, 7, 50)
+      rect(-205, 50, 7, 50);
       ellipse(-100, 100, 20);
       ellipse(-80, 100, 20);
       rect(-110, 85, 40, 7);

@@ -37,8 +37,8 @@ function setup() {
   }
   
   function draw() {
-    numberAltitude = CRW();
-    displayAltitude = CWW();
+    numberAltitude = CRW() - 26;
+    displayAltitude = CWW() + 7;
 
     background(152, 234, 250);
 
@@ -60,7 +60,7 @@ function setup() {
     fill(0);
     if (landing_gear_down) {
       ellipse(-201, 100, 20);
-      rect(-205, 50, 7, 50);
+      rect(-205, 50, 7, 50)
       ellipse(-100, 100, 20);
       ellipse(-80, 100, 20);
       rect(-110, 85, 40, 7);
@@ -79,19 +79,27 @@ function setup() {
 
     triangle(-275, 30, -250, 10, -200, 25);
     triangle(-250, 10, -200, 25, -200, 10);
-    fill(255);
-    triangle()
+    
+    textSize(20);
+    text("ALBERT AIR SERVICE", -150, 30);
     pop();
+
+    push()
     beginShape();
+    translate(200, 250);
+    rotate(angle);
     fill(245, 129, 66);
-    rect(1300, 530, 100, 25);
-    triangle(1330, 530, 1400, 500, 1360, 530);
-    triangle(1330, 555, 1360, 555, 1400, 590);
-    triangle(1300, 530, 1300, 555, 1270, 555);
+    rect(-50, -12.5, 100, 25);
+    rect(-50, -12.5, 100, 25);
+    triangle(-90, 15, -50, -12.5, -50, 12.5);
+    triangle(-50, 13, 50, 40, 40, 13);
+    triangle(10, -12.5, 50, -40, 50, -12.5);
     endShape(CLOSE);
+    pop();
+
     fill(0);
     textSize(20);
-    text('Pitch', 1300, 520);
+    text('Pitch', 150, 200);
     text('Throttle ' + '(' + background_speed + ')', 0, 20);
     pop();
     fill(145, 144, 144);
@@ -118,9 +126,16 @@ function setup() {
   if (keyIsDown(UP_ARROW)) {
     y += speed; // Move the square down
     angle -= angleSpeed;
-  } else if (keyIsDown(DOWN_ARROW)) {
+  } else if (keyIsDown(DOWN_ARROW) && background_speed >= 50) {
     y -= speed; // Move the square up
     angle += angleSpeed;
+  } else if (keyIsDown(DOWN_ARROW) && background_speed < 50) {
+    textSize(32);
+    fill(0);
+    text('Too slow to take off.', 550, 300);
+    background_speed = background_speed;
+  } else if (keyIsDown('32') && background_speed > 0) {
+    background_speed -= 0.5;
   }
 if (angle > 90) {
   y += speed; // Move the square down
@@ -150,11 +165,8 @@ if (angle > 90) {
     y += speed;
     background_speed = 0;
   }
-  fill(0);
-  textSize(32);
-  text('Pitch: ' + angle, 0, 590)
   let newspeed = flipSpeed();
-  fill(145, 144, 144)
+  fill(145, 144, 144);
   rect(10, 160, 60, 190);
   textSize(20);
   fill(0);
@@ -167,10 +179,10 @@ if (angle > 90) {
   textSize(20);
   text(Math.floor(background_speed*1.625), 10, newspeed + 140);
   text('Speed (KNOTS)', 0, 155);
-  textSize(15);
+  textSize(17);
   text('Keypresses:\nw = throttle up by 10\ns = throttle down by 10\ng = gear toggle\ndown arrow = pitch up and gain height\nup arrow = pitch down and lose height\nleft arrow = pitch down\nright arrow = pitch up\nspace = brakes', 0, 400);
   textSize(32);
-  text("Albert Kemp's JavaScript Flight Simulator ⭐⭐⭐⭐⭐", 450, 40);
+  text("Tails - JavaScript Flight Simulator (Made by Albert Kemp)", 450, 40);
   }
 
   function maxThrottle() {
@@ -193,8 +205,6 @@ function keyPressed() {
     if (newthrottle >= 0) {
       background_speed = newthrottle;
     }
-  } else if (key === ' ') {
-    background_speed = 0;
   }
 }
 

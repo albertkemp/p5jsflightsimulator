@@ -52,6 +52,8 @@ function setup() {
 
     fill(255);
     rect(background_x,610,70,10);
+    rect(background_x + 800, 610, 70, 10);
+    rect(background_x - 800, 610, 70, 10);
   
     stroke(0);
     push();

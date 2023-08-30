@@ -3,7 +3,7 @@ A flight simulator made using the p5.js library
 
 # About
 This flight simulator is currently complete, and although it isn't the best I would say I'm done as there aren't any major bugs. The project is a 2D flight simulator using the JavaScript library of P5js, which I recommend for running simple interactive programs using JavaScript.
-<br>
+<br><br>
 This flight simulator is quite nice and can be found at <a href="https://albertkemp.github.io/p5jsflightsimulator">https://albertkemp.github.io/p5jsflightsimulator</a>.
 
 # An image of the complete product:
